@@ -22,3 +22,5 @@ I would like some sort of basic thread of what I'm building before slapping down
 - Perhaps some sort of rudimentary query functionality, but that's probably crazy
 
 As a first implementation, I would like to print each column name to stdout delimited by newline.
+
+### Log
