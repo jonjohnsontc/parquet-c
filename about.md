@@ -24,3 +24,8 @@ I would like some sort of basic thread of what I'm building before slapping down
 As a first implementation, I would like to print each column name to stdout delimited by newline.
 
 ### Log
+
+- I'm starting to look into the parquet file format from their docs at <https://parquet.incubator.apache.org/docs/file-format/>
+  - The file metadata's length is stored in the 2nd to last 4-bytes of the document
+  - The file metadata is stored in the bytes prior to that
+  
