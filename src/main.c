@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-
+long decode_signed_int(long bytes);
 int main(int argc, char *argv[]) {
   if (argc != 2) {
     fprintf(stderr, "USAGE: tiny-p FILENAME\n");
@@ -42,5 +42,7 @@ int main(int argc, char *argv[]) {
                     ((uint32_t)buffer[2] << 16) |
                     ((uint32_t)buffer[3] << 24);
   printf("Length of metadata is %d bytes\n", result);
+  printf("Size of int64_t is %ld bytes\n", sizeof(int64_t));
+  printf("Size of long is %ld bytes\n", sizeof(long));
   return 0;
 }

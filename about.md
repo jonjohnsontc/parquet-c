@@ -29,7 +29,14 @@ As a first implementation, I would like to print each column name to stdout deli
   - The file metadata's length is stored in the 2nd to last 4-bytes of the document
   - The file metadata is stored in the bytes prior to that
 - When I run the parquet cli on my WSL Debian instance, I need to make sure to prepend the parquet-mr/parquet-cli path and be sure that I'm in the local directory of the parquet file
+- On my WSL machine, I've been testing the file /home/jon/projects/parquet-mr/parquet-thrift/target/out/part-m-00000.parquet
 - Metadata is encoded using TCompactProtocol
+  - Described here: <https://github.com/apache/thrift/blob/master/doc/specs/thrift-compact-protocol.md/>
   - Uses ULEB128 encoding
+  - I think the Metadata is mostly Enums in a list in a struct
   - Int encoding:
     Values of type int8 are encoded as one byte, rest are converted to int64, ZigZag'ed then encoded as varint
+  - Struct encoding:
+    - 0 or more fields followed by a stop field
+      - each field contains a field-type and a field-id
+  
