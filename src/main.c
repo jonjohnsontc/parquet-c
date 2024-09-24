@@ -72,5 +72,9 @@ int main(int argc, char *argv[]) {
   printf("Length of metadata is %d bytes\n", result);
   printf("Size of int64_t is %ld bytes\n", sizeof(int64_t));
   printf("Size of long is %ld bytes\n", sizeof(long));
+
+  printf("Parsing zigzag encoded bytestring\n");
+  const uint8_t bytes[] = { 0xC0, 0xBB, 0x78 };
+  parse_zigzag(bytes, (size_t)3);
   return 0;
 }
