@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 // decode a single zig-zag encoded value
-int64_t zigzag_decode(uin64_t n) {
+int64_t zigzag_decode(uint64_t n) {
   return (n >> 1) ^ (-(n & 1));
 }
 
@@ -28,8 +28,8 @@ void parse_zigzag(const uint8_t* bytes, size_t length) {
       shift += 7;
     } while (byte & 0x80);
     
-    int64_t decoded = zizag_decode(value);
-    printf("Decoded value %lld\n", decoded);
+    int64_t decoded = zigzag_decode(value);
+    printf("Decoded value %ld\n", decoded);
   }
 }
 
