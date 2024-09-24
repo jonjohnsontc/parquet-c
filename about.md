@@ -28,4 +28,8 @@ As a first implementation, I would like to print each column name to stdout deli
 - I'm starting to look into the parquet file format from their docs at <https://parquet.incubator.apache.org/docs/file-format/>
   - The file metadata's length is stored in the 2nd to last 4-bytes of the document
   - The file metadata is stored in the bytes prior to that
-  
+- When I run the parquet cli on my WSL Debian instance, I need to make sure to prepend the parquet-mr/parquet-cli path and be sure that I'm in the local directory of the parquet file
+- Metadata is encoded using TCompactProtocol
+  - Uses ULEB128 encoding
+  - Int encoding:
+    Values of type int8 are encoded as one byte, rest are converted to int64, ZigZag'ed then encoded as varint
