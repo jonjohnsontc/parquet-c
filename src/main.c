@@ -4,7 +4,35 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-long decode_signed_int(long bytes);
+
+// decode a single zig-zag encoded value
+int64_t zigzag_decode(uin64_t n) {
+  return (n >> 1) ^ (-(n & 1));
+}
+
+// parse a zigzag encoded bytestring
+void parse_zigzag(const uint8_t* bytes, size_t length) {
+  size_t i = 0;
+  while (i < length) {
+    uint64_t value = 0;
+    int shift = 0;
+    uint8_t byte;
+
+    do {
+      if (i >= length) {
+        printf("Error: Incomplete byte sequence\n");
+        return;
+      }
+      byte = bytes[i++];
+      value |= ((uint64_t)(byte & 0x7F)) << shift;
+      shift += 7;
+    } while (byte & 0x80);
+    
+    int64_t decoded = zizag_decode(value);
+    printf("Decoded value %lld\n", decoded);
+  }
+}
+
 int main(int argc, char *argv[]) {
   if (argc != 2) {
     fprintf(stderr, "USAGE: tiny-p FILENAME\n");
