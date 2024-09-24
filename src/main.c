@@ -29,7 +29,7 @@ void parse_zigzag(const uint8_t* bytes, size_t length) {
     } while (byte & 0x80);
     
     int64_t decoded = zigzag_decode(value);
-    printf("Decoded value %ld\n", decoded);
+    printf("Decoded value %lld\n", decoded);
   }
 }
 
