@@ -5,31 +5,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-// decode a single zig-zag encoded value
-int64_t zigzag_decode(uint64_t n) {
-  return (n >> 1) ^ (-(n & 1));
-}
-
-// parse a zigzag encoded bytestring
-void parse_zigzag(const uint8_t* bytes, size_t length) {
+long readSLEB128(const char* buffer) {
+  long result = 0;
   size_t i = 0;
-  while (i < length) {
-    uint64_t value = 0;
-    int shift = 0;
-    uint8_t byte;
-
-    do {
-      if (i >= length) {
-        printf("Error: Incomplete byte sequence\n");
-        return;
-      }
-      byte = bytes[i++];
-      value |= ((uint64_t)(byte & 0x7F)) << shift;
-      shift += 7;
-    } while (byte & 0x80);
-    
-    int64_t decoded = zigzag_decode(value);
-    printf("Decoded value %lld\n", decoded);
+  char byte;
+  while (1) {
+    result = result + ((buffer[i++]))
   }
 }
 
@@ -74,7 +55,8 @@ int main(int argc, char *argv[]) {
   printf("Size of long is %ld bytes\n", sizeof(long));
 
   printf("Parsing zigzag encoded bytestring\n");
-  const uint8_t bytes[] = { 0xC0, 0xBB, 0x78 };
-  parse_zigzag(bytes, (size_t)3);
+  const char bytes[] = { 0xC0, 0xBB, 0x78 };
+  long res = readSLEB128(bytes);
+  printf("bytes equal %ld\n", res);
   return 0;
 }

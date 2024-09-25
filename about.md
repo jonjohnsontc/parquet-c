@@ -33,10 +33,14 @@ As a first implementation, I would like to print each column name to stdout deli
 - Metadata is encoded using TCompactProtocol
   - Described here: <https://github.com/apache/thrift/blob/master/doc/specs/thrift-compact-protocol.md/>
   - Uses ULEB128 encoding
+    - Ints divided into groups of 7 bits
+    - From LSB -> MSB
+    - 8th bit is used to indicate whether more bytes are necessary
+    - MSB == 1 = more data. MSB == 0 = no more data
   - I think the Metadata is mostly Enums in a list in a struct
   - Int encoding:
     Values of type int8 are encoded as one byte, rest are converted to int64, ZigZag'ed then encoded as varint
   - Struct encoding:
     - 0 or more fields followed by a stop field
       - each field contains a field-type and a field-id
-  
+- I added a CMakeLists.txt file so that CLion can build and run the project in the UI
