@@ -5,13 +5,41 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-long readSLEB128(const char* buffer) {
-  long result = 0;
-  size_t i = 0;
-  char byte;
-  while (1) {
-    result = result + ((buffer[i++]))
-  }
+
+/* 
+ * Ganked from GCC leb128.h - code is GPL V2 Licensed
+ * Decode the signed LEB128 constant at BUF into the variable pointed to
+   by R, and return the number of bytes read.
+   If we read off the end of the buffer, zero is returned,
+   and nothing is stored in R.
+
+   Note: The result is an int instead of a pointer to the next byte to be
+   read to avoid const-vs-non-const problems.  */
+static inline size_t
+read_sleb128_to_int64 (const unsigned char *buf, const unsigned char *buf_end,
+		       int64_t *r)
+{
+  const unsigned char *p = buf;
+  unsigned int shift = 0;
+  int64_t result = 0;
+  unsigned char byte;
+
+  while (1)
+    {
+      if (p >= buf_end)
+	return 0;
+
+      byte = *p++;
+      result |= ((uint64_t) (byte & 0x7f)) << shift;
+      shift += 7;
+      if ((byte & 0x80) == 0)
+	break;
+    }
+  if (shift < (sizeof (*r) * 8) && (byte & 0x40) != 0)
+    result |= -(((uint64_t) 1) << shift);
+
+  *r = result;
+  return p - buf;
 }
 
 int main(int argc, char *argv[]) {
@@ -55,8 +83,10 @@ int main(int argc, char *argv[]) {
   printf("Size of long is %ld bytes\n", sizeof(long));
 
   printf("Parsing zigzag encoded bytestring\n");
-  const char bytes[] = { 0xC0, 0xBB, 0x78 };
-  long res = readSLEB128(bytes);
+  const unsigned char bytes[] = { 0xC0, 0xBB, 0x78 };
+  const unsigned char* end = bytes + 4;
+  int64_t res = 0;
+  read_sleb128_to_int64(bytes, end, &res);
   printf("bytes equal %ld\n", res);
   return 0;
 }
