@@ -42,6 +42,11 @@ read_sleb128_to_int64 (const unsigned char *buf, const unsigned char *buf_end,
   return p - buf;
 }
 
+/*
+  - Read from text file at argv[1]
+  - Get length of footer
+  -
+*/
 int main(int argc, char *argv[]) {
   if (argc != 2) {
     fprintf(stderr, "USAGE: tiny-p FILENAME\n");

@@ -42,5 +42,8 @@ As a first implementation, I would like to print each column name to stdout deli
     Values of type int8 are encoded as one byte, rest are converted to int64, ZigZag'ed then encoded as varint
   - Struct encoding:
     - 0 or more fields followed by a stop field
-      - each field contains a field-type and a field-id
+      - each field contains a field-type and a field-id, because of this they can be listed in any order
+  
 - I added a CMakeLists.txt file so that CLion can build and run the project in the UI
+- I downloaded HxD to read the hex of the test parquet file I've been using
+  - It looks like the footer is 1047 bytes long
