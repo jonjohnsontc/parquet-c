@@ -34,9 +34,13 @@ int main(int argc, char *argv[]) {
         perror("Error opening file");
         exit(1);
     }
+    long pos = ftell(parquet);
+    printf("Location after opening: %ld\n", pos);
 
     fseek(parquet, 0, SEEK_END);
     long file_size = ftell(parquet);
+    printf("Location after seeking to end for file size: %ld\n", file_size);
+
     if (file_size < 8) {
         fprintf(stderr, "File is too small - def not a proper parquet file\n");
         fclose(parquet);
@@ -45,37 +49,39 @@ int main(int argc, char *argv[]) {
 
     // Go to the location of the length of the metadata file
     fseek(parquet, -8, SEEK_END);
+    pos = ftell(parquet);
+    printf("Location after seeking to location of metadata length: %ld\n", pos);
 
     uint8_t buffer[4];
     safe_read_byte(buffer, parquet, 4);
+    pos = ftell(parquet);
+    printf("Location after reading in length of metadata file: %ld\n", pos);
 
-    uint32_t result = (uint32_t) buffer[0] |
+    long no_items = (uint32_t) buffer[0] |
                       ((uint32_t) buffer[1] << 8) |
                       ((uint32_t) buffer[2] << 16) |
                       ((uint32_t) buffer[3] << 24);
-    printf("Length of metadata is %d bytes\n", result);
+    printf("Length of metadata is %ld bytes\n", no_items);
 
     //  We'll copy and invoke the read_footer function
-    fseek(parquet, -(result+4), SEEK_END);
+    fseek(parquet, -no_items, SEEK_END);
+    pos = ftell(parquet);
+    printf("Location after seeking to start of metadata: %ld\n", pos);
 
-    char* meta = malloc(result);
+    char* meta = malloc(no_items);
     if (meta == NULL) {
         fprintf(stderr, "malloc error\n");
         exit(1);
     }
-    safe_read_byte(meta, parquet, result);
+    safe_read_byte(meta, parquet, no_items);
     fclose(parquet);
     printf("%s\n", meta);
 
-    printf("Size of int64_t is %ld bytes\n", sizeof(int64_t));
-    printf("Size of long is %ld bytes\n", sizeof(long));
-
-    printf("Parsing zigzag encoded bytestring\n");
     const unsigned char bytes[] = {0xC0, 0xBB, 0x78};
     const unsigned char *end = bytes + 4;
     int64_t res = 0;
     read_sleb128_to_int64(bytes, end, &res);
-    printf("bytes equal %lld\n", res);
+    printf("bytes equal %ld\n", res);
 
     free(meta);
     return 0;
@@ -112,6 +118,7 @@ void safe_read_byte(void* buffer, FILE* stream, size_t no_items) {
         perror("Error reading file");
         printf("Bytes read: %zu\n", len);
         printf("File is currently at: %ld\n", ftell(stream));
+        printf("Contents of buffer: %s\n", (char *)buffer);
         fclose(stream);
         exit(1);
     }
