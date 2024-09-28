@@ -4,11 +4,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
-
-
-/* 
- * Ganked from GCC leb128.h - code is GPL V2 Licensed
- * Decode the signed LEB128 constant at BUF into the variable pointed to
+/*
+   Ganked from GCC leb128.h - code is GPL V2 Licensed
+   Decode the signed LEB128 constant at BUF into the variable pointed to
    by R, and return the number of bytes read.
    If we read off the end of the buffer, zero is returned,
    and nothing is stored in R.
@@ -58,9 +56,9 @@ int main(int argc, char *argv[]) {
     printf("Length of metadata is %d bytes\n", result);
 
     //  We'll copy and invoke the read_footer function
-    fseek(parquet, -(result+4), SEEK_CUR);
+    fseek(parquet, -(result+4), SEEK_END);
 
-    char* meta = malloc(sizeof(char) * result);
+    char* meta = malloc(result);
     if (meta == NULL) {
         fprintf(stderr, "malloc error\n");
         exit(1);
@@ -109,8 +107,11 @@ read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
 }
 
 void safe_read_byte(void* buffer, FILE* stream, size_t no_items) {
-    if (fread(buffer, 1, no_items, stream) != 4) {
+    size_t len;
+    if ((len = fread(buffer, 1, no_items, stream)) != no_items) {
         perror("Error reading file");
+        printf("Bytes read: %zu\n", len);
+        printf("File is currently at: %ld\n", ftell(stream));
         fclose(stream);
         exit(1);
     }
