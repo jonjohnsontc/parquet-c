@@ -16,8 +16,12 @@
 static inline size_t
 read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
                       int64_t *r);
-void safe_read_byte(void* buffer, FILE* stream, size_t no_items);
-void read_footer(char *footer, FILE* stream, size_t length);
+
+// int zigzag_decode(const unsigned char * buf, size_t length, char* dest);
+void safe_read_byte(void *buffer, FILE *stream, size_t no_items);
+
+void read_meta(char *meta, FILE *stream, size_t length);
+
 /*
   - Read from text file at argv[1]
   - Get length of footer
@@ -41,7 +45,6 @@ int main(int argc, char *argv[]) {
     if (file_size < 8) {
         fprintf(stderr, "File is too small - def not a proper parquet file\n");
         fclose(parquet);
-        exit(1);
     }
 
     // Go to the location of the length of the metadata file
@@ -51,25 +54,26 @@ int main(int argc, char *argv[]) {
     safe_read_byte(buffer, parquet, 4);
 
     long no_items = (uint32_t) buffer[0] |
-                      ((uint32_t) buffer[1] << 8) |
-                      ((uint32_t) buffer[2] << 16) |
-                      ((uint32_t) buffer[3] << 24);
+                    ((uint32_t) buffer[1] << 8) |
+                    ((uint32_t) buffer[2] << 16) |
+                    ((uint32_t) buffer[3] << 24);
     printf("Length of metadata is %ld bytes\n", no_items);
 
     //  We'll copy and invoke the read_footer function
     fseek(parquet, -(no_items + 8), SEEK_END);
 
-    char* meta = malloc(no_items * sizeof(char));
+    char *meta = malloc(no_items);
     if (meta == NULL) {
         fprintf(stderr, "malloc error\n");
         exit(1);
     }
-    safe_read_byte(meta, parquet, no_items);
+    char *dest = malloc(no_items);
+    if (dest == NULL) {
+        fprintf(stderr, "malloc error\n");
+        exit(1);
+    }
+    read_meta(dest, parquet, no_items);
     fclose(parquet);
-    printf("Parquet Metadata:\n");
-    for (int i = 0; i < no_items; i++)
-        printf("%c", meta[i]);
-    printf("\n");
 
     const unsigned char bytes[] = {0xC0, 0xBB, 0x78};
     const unsigned char *end = bytes + 4;
@@ -78,6 +82,7 @@ int main(int argc, char *argv[]) {
     printf("bytes equal %ld\n", res);
 
     free(meta);
+    free(dest);
     return 0;
 }
 
@@ -106,18 +111,27 @@ read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
     return p - buf;
 }
 
-void safe_read_byte(void* buffer, FILE* stream, size_t no_items) {
+void safe_read_byte(void *buffer, FILE *stream, size_t no_items) {
     size_t len;
     if ((len = fread(buffer, 1, no_items, stream)) != no_items) {
         perror("Error reading file");
         printf("Bytes read: %zu\n", len);
         printf("File is currently at: %ld\n", ftell(stream));
-        printf("Contents of buffer: %s\n", (char *)buffer);
+        printf("Contents of buffer: %s\n", (char *) buffer);
         fclose(stream);
         exit(1);
     }
 }
 
-void read_footer(char *footer, FILE* stream, size_t length) {
-    safe_read_byte(footer, stream, length);
+void read_meta(char *meta, FILE *stream, size_t length) {
+    safe_read_byte(meta, stream, length);
+    printf("Parquet Metadata:\n");
+    for (int i = 0; i < length; i++)
+        printf("%c", meta[i]);
+    printf("\n");
 }
+
+// int zigzag_decode(const unsigned char * buf, size_t length, char*dest) {
+//     size_t cur;
+//
+// }
