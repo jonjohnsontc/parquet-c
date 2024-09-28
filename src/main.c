@@ -17,33 +17,9 @@
    read to avoid const-vs-non-const problems.  */
 static inline size_t
 read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
-                      int64_t *r) {
-    const unsigned char *p = buf;
-    unsigned int shift = 0;
-    int64_t result = 0;
-    unsigned char byte;
-
-    while (1) {
-        if (p >= buf_end)
-            return 0;
-
-        byte = *p++;
-        result |= ((uint64_t) (byte & 0x7f)) << shift;
-        shift += 7;
-        if ((byte & 0x80) == 0)
-            break;
-    }
-    if (shift < (sizeof(*r) * 8) && (byte & 0x40) != 0)
-        result |= -(((uint64_t) 1) << shift);
-
-    *r = result;
-    return p - buf;
-}
-
-void read_footer(const char *footer, size_t length) {
-
-}
-
+                      int64_t *r);
+void safe_read_byte(void* buffer, FILE* stream, size_t no_items);
+void read_footer(const char *footer, size_t length);
 /*
   - Read from text file at argv[1]
   - Get length of footer
@@ -73,14 +49,7 @@ int main(int argc, char *argv[]) {
     fseek(parquet, -8, SEEK_END);
 
     uint8_t buffer[4];
-    if (fread(buffer, 1, 4, parquet) != 4) {
-        perror("Error reading file");
-        fclose(parquet);
-        exit(1);
-    }
-
-
-    fclose(parquet);
+    safe_read_byte(buffer, parquet, 4);
 
     uint32_t result = (uint32_t) buffer[0] |
                       ((uint32_t) buffer[1] << 8) |
@@ -96,11 +65,8 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "malloc error\n");
         exit(1);
     }
-    if (fread(meta, 1, result, parquet) != result) {
-        perror("Error reading file");
-        fclose(parquet);
-        exit(1);
-    }
+    safe_read_byte(meta, parquet, result);
+    fclose(parquet);
     printf("%s\n", meta);
 
     printf("Size of int64_t is %ld bytes\n", sizeof(int64_t));
@@ -115,4 +81,37 @@ int main(int argc, char *argv[]) {
 
     free(meta);
     return 0;
+}
+
+static inline size_t
+read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
+                      int64_t *r) {
+    const unsigned char *p = buf;
+    unsigned int shift = 0;
+    int64_t result = 0;
+    unsigned char byte;
+
+    while (1) {
+        if (p >= buf_end)
+            return 0;
+
+        byte = *p++;
+        result |= ((uint64_t) (byte & 0x7f)) << shift;
+        shift += 7;
+        if ((byte & 0x80) == 0)
+            break;
+    }
+    if (shift < (sizeof(*r) * 8) && (byte & 0x40) != 0)
+        result |= -(((uint64_t) 1) << shift);
+
+    *r = result;
+    return p - buf;
+}
+
+void safe_read_byte(void* buffer, FILE* stream, size_t no_items) {
+    if (fread(buffer, 1, no_items, stream) != 4) {
+        perror("Error reading file");
+        fclose(stream);
+        exit(1);
+    }
 }
