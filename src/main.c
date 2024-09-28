@@ -17,7 +17,7 @@ static inline size_t
 read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
                       int64_t *r);
 void safe_read_byte(void* buffer, FILE* stream, size_t no_items);
-void read_footer(const char *footer, size_t length);
+void read_footer(char *footer, FILE* stream, size_t length);
 /*
   - Read from text file at argv[1]
   - Get length of footer
@@ -34,12 +34,9 @@ int main(int argc, char *argv[]) {
         perror("Error opening file");
         exit(1);
     }
-    long pos = ftell(parquet);
-    printf("Location after opening: %ld\n", pos);
 
     fseek(parquet, 0, SEEK_END);
     long file_size = ftell(parquet);
-    printf("Location after seeking to end for file size: %ld\n", file_size);
 
     if (file_size < 8) {
         fprintf(stderr, "File is too small - def not a proper parquet file\n");
@@ -49,13 +46,9 @@ int main(int argc, char *argv[]) {
 
     // Go to the location of the length of the metadata file
     fseek(parquet, -8, SEEK_END);
-    pos = ftell(parquet);
-    printf("Location after seeking to location of metadata length: %ld\n", pos);
 
     uint8_t buffer[4];
     safe_read_byte(buffer, parquet, 4);
-    pos = ftell(parquet);
-    printf("Location after reading in length of metadata file: %ld\n", pos);
 
     long no_items = (uint32_t) buffer[0] |
                       ((uint32_t) buffer[1] << 8) |
@@ -64,18 +57,19 @@ int main(int argc, char *argv[]) {
     printf("Length of metadata is %ld bytes\n", no_items);
 
     //  We'll copy and invoke the read_footer function
-    fseek(parquet, -no_items, SEEK_END);
-    pos = ftell(parquet);
-    printf("Location after seeking to start of metadata: %ld\n", pos);
+    fseek(parquet, -(no_items + 8), SEEK_END);
 
-    char* meta = malloc(no_items);
+    char* meta = malloc(no_items * sizeof(char));
     if (meta == NULL) {
         fprintf(stderr, "malloc error\n");
         exit(1);
     }
     safe_read_byte(meta, parquet, no_items);
     fclose(parquet);
-    printf("%s\n", meta);
+    printf("Parquet Metadata:\n");
+    for (int i = 0; i < no_items; i++)
+        printf("%c", meta[i]);
+    printf("\n");
 
     const unsigned char bytes[] = {0xC0, 0xBB, 0x78};
     const unsigned char *end = bytes + 4;
@@ -122,4 +116,8 @@ void safe_read_byte(void* buffer, FILE* stream, size_t no_items) {
         fclose(stream);
         exit(1);
     }
+}
+
+void read_footer(char *footer, FILE* stream, size_t length) {
+    safe_read_byte(footer, stream, length);
 }
