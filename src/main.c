@@ -1,5 +1,5 @@
 /*
-  Reads in footer of parquet file, and returns its length in bytes
+  Reads in parquet file and returns it's parsed metadata
 */
 #include <stdio.h>
 #include <stdint.h>
@@ -16,9 +16,9 @@
 static inline size_t
 read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
                       int64_t *r);
-int zigzag_decode(const unsigned char * buf, size_t length, char*dest);
+//int zigzag_decode(const unsigned char * buf, size_t length, char*dest);
 void safe_read_byte(void *buffer, FILE *stream, size_t no_items);
-void read_meta(char *meta, char *res, FILE *stream, size_t length);
+void read_meta(char *meta, FILE *stream, size_t length);
 
 /*
   - Read from text file at argv[1]
@@ -70,15 +70,19 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "malloc error\n");
         exit(1);
     }
-    read_meta(meta, dest, parquet, no_items);
+    read_meta(meta, parquet, no_items);
     fclose(parquet);
 
     const unsigned char bytes[] = {0xC0, 0xBB, 0x78};
     const unsigned char *end = bytes + 4;
     int64_t res = 0;
     read_sleb128_to_int64(bytes, end, &res);
+#ifdef __linux__
     printf("bytes equal %ld\n", res);
-
+#endif
+#ifdef __APPLE__
+    printf("bytes equal %lld\n", res);
+#endif
     free(meta);
     free(dest);
     return 0;
@@ -121,26 +125,25 @@ void safe_read_byte(void *buffer, FILE *stream, size_t no_items) {
     }
 }
 
-void read_meta(char *meta, char *res, FILE *stream, size_t length) {
+void read_meta(char *meta, FILE *stream, size_t length) {
     safe_read_byte(meta, stream, length);
-    int chars_written = zigzag_decode((const unsigned char*)meta, length, res);
-    printf("Chars written when decoding %d\n", chars_written / 4);
     printf("Parquet Metadata:\n");
-    printf("%s\n", res);
     for (int i = 0; i < length; i++)
         printf("%c", meta[i]);
     printf("\n");
 }
 
-int zigzag_decode(const unsigned char * buf, size_t length, char*dest) {
-    const unsigned char * cursor = buf;
-    int written = 0;
-    int64_t res;
-    while (cursor < buf + length) {
-        const size_t amt = read_sleb128_to_int64(cursor, cursor + 4, &res);
-        cursor += amt;
-        written++;
-        *dest++ = res;
-    }
-    return written;
-}
+// TODO: This whole this is based on some assumptions that aren't true, I should
+// re-do this if I need to use it.
+//int zigzag_decode(const unsigned char * buf, size_t length, char*dest) {
+//    const unsigned char * cursor = buf;
+//    int written = 0;
+//    int64_t res;
+//    while (cursor < buf + length) {
+//        const size_t amt = read_sleb128_to_int64(cursor, cursor + 4, &res);
+//        cursor += amt;
+//        written++;
+//        *dest++ = res;
+//    }
+//    return written;
+//}
