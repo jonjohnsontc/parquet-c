@@ -151,3 +151,56 @@ bytes equal -123456
 
 - I created a python environment, and used parquet-tools to get some high-level detail about the parquet in the tests folder.
   - Number of rows from it is: 426
+
+---
+
+- Today, I'm going to be attempting to install the parquet-cli locally (or use it at least) alongside a debugger to see exactly how it reads footer metadata.
+- I just installed Bison, which is a dependency for installing thrift using its ./configure file
+- Here is the end of install log:
+
+```
+bison is keg-only, which means it was not symlinked into /usr/local,
+because macOS already provides this software and installing another version in
+parallel can cause all kinds of trouble.
+
+If you need to have bison first in your PATH, run:
+  echo 'export PATH="/usr/local/opt/bison/bin:$PATH"' >> ~/.zshrc
+
+For compilers to find bison you may need to set:
+  export LDFLAGS="-L/usr/local/opt/bison/lib"
+==> Summary
+🍺  /usr/local/Cellar/bison/3.8.2: 100 files, 3.7MB
+==> Running `brew cleanup bison`...
+Disable this behaviour by setting HOMEBREW_NO_INSTALL_CLEANUP.
+Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
+
+```
+- Intalling bison worked, but now I'm seeing an error when running `make install`
+- <strike>It might be better if I instead just git clone the repository and change it myself</strike> 
+  - Forgot that the archived file I downloaded earlier was the source code
+- I ended up changing the code in the problematic file based on the PR that fixed the [issue](https://github.com/apache/thrift/commit/bc9c04d8049d7d5f5cf4e63a25226c1fb8c930bf)
+- Afterward I resumed trying to build the parquet-cli library by running `mvn package -B -DskipTests`
+- I was able to package all the libaries up-to `Parquet Scala` which includes  parquet-cli, so I think I'm going to try and use it now
+- Notably, Parquet Scala is packaged before parquet-hadoop which parquet-cli normally depends on
+- I was having an issue finding the class files initially, I think. But, after using a combined classpath, I was able to invoke the cli app
+  - commands:
+
+``` 
+jonjohnson@Jons-MBP parquet-cli % mkdir parquet-cli                
+jonjohnson@Jons-MBP parquet-cli % cp target/parquet-cli-1.14.2-runtime.jar parquet-cli/parquet-cli.jar
+jonjohnson@Jons-MBP parquet-cli % cp -r target/dependency parquet-cli 
+jonjohnson@Jons-MBP parquet-cli % java -cp 'parquet-cli/*:parquet-cli/dependency/*' 'org.apache.parquet.cli.Main'
+```
+- Now I'm having issues running it alongside the IntelliJ Debugger.
+- where the above java command runs successfully, the below command results in a missing class:
+```
+/users/jonjohnson/library/java/javavirtualmachines/temurin-21.0.4/contents/home/bin/java -agentlib:jdwp=transport=dt_socket,address=127.0.0.1:61374,suspend=y,server=n -cp '/users/jonjohnson/dev/parquet-java/parquet-cli/*:/users/jonjohnson/dev/parquet-java/parquet-cli/dependency/*' -javaagent:/users/jonjohnson/library/caches/jetbrains/intellijidea2024.2/captureagent/debugger-agent.jar -dkotlinx.coroutines.debug.enable.creation.stack.trace=false -ddebugger.agent.enable.coroutines=true -dfile.encoding=utf-8 -dsun.stdout.encoding=utf-8 -dsun.stderr.encoding=utf-8 -jar /users/jonjohnson/dev/parquet-java/parquet-cli/parquet-cli/parquet-cli.jar
+connected to the target VM, address: '127.0.0.1:61374', transport: 'socket'
+Error: Could not find or load main class org.apache.parquet.cli.Main
+Caused by: java.lang.NoClassDefFoundError: org/apache/hadoop/util/Tool
+Disconnected from the target VM, address: '127.0.0.1:61374', transport: 'socket'
+```
+
+- I was able to get the debugger running alongside the CLI after consulting claude for a bit
+- First, I needed to change invoking the application so that I didn't pass the -jar argument. That executes a program in a completely different manner, and disregards the -cp value if passed in.
+- Then, I needed to make sure to surround the path I wanted to add with double quotes instead of single quotes
