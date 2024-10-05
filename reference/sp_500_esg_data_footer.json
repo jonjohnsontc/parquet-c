@@ -1,0 +1,1095 @@
+{
+  "fileMetaData" : {
+    "schema" : {
+      "name" : "duckdb_schema",
+      "repetition" : "REPEATED",
+      "logicalTypeAnnotation" : null,
+      "id" : null,
+      "fields" : [ {
+        "name" : "symbol",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : { },
+        "id" : null,
+        "primitive" : "BINARY",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "full_name",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : { },
+        "id" : null,
+        "primitive" : "BINARY",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "gics_sector",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : { },
+        "id" : null,
+        "primitive" : "BINARY",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "gics_sub_industry",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : { },
+        "id" : null,
+        "primitive" : "BINARY",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "env_score",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : null,
+        "id" : null,
+        "primitive" : "DOUBLE",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "social_score",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : null,
+        "id" : null,
+        "primitive" : "DOUBLE",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "gov_score",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : null,
+        "id" : null,
+        "primitive" : "DOUBLE",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "total_esg",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : null,
+        "id" : null,
+        "primitive" : "DOUBLE",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "highest_controversy",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : {
+          "bitWidth" : 16,
+          "isSigned" : true
+        },
+        "id" : null,
+        "primitive" : "INT32",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "percentile",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : null,
+        "id" : null,
+        "primitive" : "DOUBLE",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "rating_year",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : {
+          "bitWidth" : 16,
+          "isSigned" : true
+        },
+        "id" : null,
+        "primitive" : "INT32",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "rating_month",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : {
+          "bitWidth" : 16,
+          "isSigned" : true
+        },
+        "id" : null,
+        "primitive" : "INT32",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "market_cap",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : {
+          "bitWidth" : 64,
+          "isSigned" : true
+        },
+        "id" : null,
+        "primitive" : "INT64",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "beta",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : null,
+        "id" : null,
+        "primitive" : "DOUBLE",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      }, {
+        "name" : "overall_risk",
+        "repetition" : "OPTIONAL",
+        "logicalTypeAnnotation" : {
+          "bitWidth" : 16,
+          "isSigned" : true
+        },
+        "id" : null,
+        "primitive" : "INT32",
+        "length" : 0,
+        "decimalMeta" : null,
+        "columnOrder" : {
+          "columnOrderName" : "TYPE_DEFINED_ORDER"
+        }
+      } ],
+      "indexByName" : {
+        "beta" : 13,
+        "env_score" : 4,
+        "full_name" : 1,
+        "gics_sector" : 2,
+        "gics_sub_industry" : 3,
+        "gov_score" : 6,
+        "highest_controversy" : 8,
+        "market_cap" : 12,
+        "overall_risk" : 14,
+        "percentile" : 9,
+        "rating_month" : 11,
+        "rating_year" : 10,
+        "social_score" : 5,
+        "symbol" : 0,
+        "total_esg" : 7
+      }
+    },
+    "keyValueMetaData" : { },
+    "createdBy" : "DuckDB",
+    "fileDecryptor" : null,
+    "encryptionType" : "UNENCRYPTED"
+  },
+  "blocks" : [ {
+    "columns" : [ {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "symbol" ]
+        },
+        "type" : {
+          "name" : "symbol",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147483644,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481557,
+      "totalUncompressedSize" : -2147480597,
+      "statistics" : {
+        "type" : {
+          "name" : "symbol",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "UTF8_STRINGIFIER"
+        },
+        "max" : {
+          "isBackingBytesReused" : true,
+          "value" : "WlRT"
+        },
+        "min" : {
+          "isBackingBytesReused" : true,
+          "value" : "QQ=="
+        }
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "full_name" ]
+        },
+        "type" : {
+          "name" : "full_name",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147481553,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147478191,
+      "totalUncompressedSize" : -2147475947,
+      "statistics" : {
+        "type" : {
+          "name" : "full_name",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "UTF8_STRINGIFIER"
+        },
+        "max" : {
+          "isBackingBytesReused" : true,
+          "value" : "ZUJheQ=="
+        },
+        "min" : {
+          "isBackingBytesReused" : true,
+          "value" : "M00="
+        }
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "gics_sector" ]
+        },
+        "type" : {
+          "name" : "gics_sector",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "RLE_DICTIONARY", "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147475905,
+      "dictionaryPageOffset" : -2147476096,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147482886,
+      "totalUncompressedSize" : -2147482660,
+      "statistics" : {
+        "type" : {
+          "name" : "gics_sector",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "UTF8_STRINGIFIER"
+        },
+        "max" : {
+          "isBackingBytesReused" : true,
+          "value" : "VXRpbGl0aWVz"
+        },
+        "min" : {
+          "isBackingBytesReused" : true,
+          "value" : "Q29tbXVuaWNhdGlvbiBTZXJ2aWNlcw=="
+        }
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "gics_sub_industry" ]
+        },
+        "type" : {
+          "name" : "gics_sub_industry",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "RLE_DICTIONARY", "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147473272,
+      "dictionaryPageOffset" : -2147475334,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147480715,
+      "totalUncompressedSize" : -2147479545,
+      "statistics" : {
+        "type" : {
+          "name" : "gics_sub_industry",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : { },
+          "id" : null,
+          "primitive" : "BINARY",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "UTF8_STRINGIFIER"
+        },
+        "max" : {
+          "isBackingBytesReused" : true,
+          "value" : "V2lyZWxlc3MgVGVsZWNvbW11bmljYXRpb24gU2VydmljZXM="
+        },
+        "min" : {
+          "isBackingBytesReused" : true,
+          "value" : "QWR2ZXJ0aXNpbmc="
+        }
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "env_score" ]
+        },
+        "type" : {
+          "name" : "env_score",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147472401,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481772,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "env_score",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 24.98,
+        "min" : -0.0
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "social_score" ]
+        },
+        "type" : {
+          "name" : "social_score",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147470525,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481787,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "social_score",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 22.48,
+        "min" : 0.76
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "gov_score" ]
+        },
+        "type" : {
+          "name" : "gov_score",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147468664,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481966,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "gov_score",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 19.43,
+        "min" : 2.96
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "total_esg" ]
+        },
+        "type" : {
+          "name" : "total_esg",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147466982,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481620,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "total_esg",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 41.66,
+        "min" : 7.08
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "highest_controversy" ]
+        },
+        "type" : {
+          "name" : "highest_controversy",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147464954,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147482998,
+      "totalUncompressedSize" : -2147481917,
+      "statistics" : {
+        "type" : {
+          "name" : "highest_controversy",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 5,
+        "min" : 0
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "percentile" ]
+        },
+        "type" : {
+          "name" : "percentile",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147464304,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481529,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "percentile",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 93.23,
+        "min" : 1.27
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "rating_year" ]
+        },
+        "type" : {
+          "name" : "rating_year",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147462185,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147483518,
+      "totalUncompressedSize" : -2147481917,
+      "statistics" : {
+        "type" : {
+          "name" : "rating_year",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 2023,
+        "min" : 2021
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "rating_month" ]
+        },
+        "type" : {
+          "name" : "rating_month",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147462055,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147483518,
+      "totalUncompressedSize" : -2147481917,
+      "statistics" : {
+        "type" : {
+          "name" : "rating_month",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 9,
+        "min" : 3
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "market_cap" ]
+        },
+        "type" : {
+          "name" : "market_cap",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 64,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT64",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147461925,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481006,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "market_cap",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 64,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT64",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 3296096681984,
+        "min" : 6389305856
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "beta" ]
+        },
+        "type" : {
+          "name" : "beta",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147459283,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147481564,
+      "totalUncompressedSize" : -2147480213,
+      "statistics" : {
+        "type" : {
+          "name" : "beta",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : null,
+          "id" : null,
+          "primitive" : "DOUBLE",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 3.243,
+        "min" : -0.057
+      },
+      "sizeStatistics" : null
+    }, {
+      "rowGroupOrdinal" : 0,
+      "encodingStats" : null,
+      "properties" : {
+        "codec" : "SNAPPY",
+        "path" : {
+          "p" : [ "overall_risk" ]
+        },
+        "type" : {
+          "name" : "overall_risk",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "encodings" : [ "PLAIN" ]
+      },
+      "columnIndexReference" : null,
+      "offsetIndexReference" : null,
+      "bloomFilterOffset" : -1,
+      "bloomFilterLength" : -1,
+      "firstDataPage" : -2147457199,
+      "dictionaryPageOffset" : -2147483648,
+      "valueCount" : -2147483222,
+      "totalSize" : -2147482826,
+      "totalUncompressedSize" : -2147481917,
+      "statistics" : {
+        "type" : {
+          "name" : "overall_risk",
+          "repetition" : "OPTIONAL",
+          "logicalTypeAnnotation" : {
+            "bitWidth" : 16,
+            "isSigned" : true
+          },
+          "id" : null,
+          "primitive" : "INT32",
+          "length" : 0,
+          "decimalMeta" : null,
+          "columnOrder" : {
+            "columnOrderName" : "TYPE_DEFINED_ORDER"
+          }
+        },
+        "comparator" : { },
+        "hasNonNullValue" : true,
+        "num_nulls" : 0,
+        "stringifier" : {
+          "name" : "DEFAULT_STRINGIFIER",
+          "digits" : "0123456789ABCDEF"
+        },
+        "max" : 10,
+        "min" : 1
+      },
+      "sizeStatistics" : null
+    } ],
+    "rowCount" : 426,
+    "totalByteSize" : 283380,
+    "path" : null,
+    "ordinal" : 0,
+    "rowIndexOffset" : 0
+  } ]
+}

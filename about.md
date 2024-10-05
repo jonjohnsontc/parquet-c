@@ -204,3 +204,71 @@ Disconnected from the target VM, address: '127.0.0.1:61374', transport: 'socket'
 - I was able to get the debugger running alongside the CLI after consulting claude for a bit
 - First, I needed to change invoking the application so that I didn't pass the -jar argument. That executes a program in a completely different manner, and disregards the -cp value if passed in.
 - Then, I needed to make sure to surround the path I wanted to add with double quotes instead of single quotes
+
+---
+
+- Running the debugger, I've set a breakpoint on the `readFooter` method
+- Eventually getting into the `ParquetFileReader` class and the readFooter method
+- We validate the length of the file
+- We read the length of the metadata
+- We see if the file is encrypted
+- We validate that PAR1 is on both sides of the file
+- We read the footer into a byte buffer
+- We flip the byteBuffer
+     - Seems like it basically sets the pointer to the first byte in the buffer
+- Wrap bytebuffer as InputStream
+- call converter.readParquetMetadata (of type ParquetMetadataConverter)
+- eventually call ParquetMetadataConverter.readParquetMetadata 
+- eventually read Footer metadata by Instantiating FileMetaData class
+- It first creates a mapping of high-level metadata, the key being an enum matched to the part of the parquet file, and the value being an instane of the FileMetaData class.
+- The FileMetaData class does have a read method. It seems to be reading in the data within a TCompactProtocol class
+      - The TCompactProtocol is wrapped by an InterningProtocol that interns strings
+- TCompactProtocol is changed to a TTupleProtocol before reading in the `FileMetaData.version`
+- First reads in version as I32 (read bytes as varint & then convert to Int via ZigZag)
+- I don't think there's any issue reading in a varint as i64 instead
+-  
+
+#### TCompactProtocol
+
+- It reads the data through TIOStreamTransport protocol/class
+  - The TIOStreamTransport reads data through a Java input stream
+    - Instantiating the TIOStreamTransport class sets the java input stream as it's inputStream_ property
+    - It has a LOGGER variable
+- TCompactProtocol seems to be instantiated like the following, with the TIOStreamTransport class being passed as the transport arg:
+
+```java
+  public TCompactProtocol(TTransport transport, long stringLengthLimit, long containerLengthLimit) {
+        super(transport);
+        this.lastField_ = new ShortStack(15);
+        this.lastFieldId_ = 0;
+        this.booleanField_ = null;
+        this.boolValue_ = null;
+        this.temp = new byte[16];
+        this.stringLengthLimit_ = stringLengthLimit;
+        this.containerLengthLimit_ = containerLengthLimit;
+    }
+```
+
+- It seems to be a class designed to help read or write bytes to the spec of TCompactProtocol
+
+#### FileMetaData
+
+##### Origins of File
+
+- I'm still not quite sure where this file comes from. I _think_ now that it's created by the Thrift protocol when it reads in the parquet thrift format
+
+##### About
+
+- When the Util.read() method is being called, one of the arguments is a FileMetaData class is being instantiated.
+- It's instantiated with 0 arguments, so I think it's instantiated like so:
+
+```java
+public FileMetaData() {
+        this.__isset_bitfield = 0;
+    }
+```
+- The Util.read() method uses the `base` arg passed in to read the inputStream. It's the FileMetaData object
+  - `tbase.read(protocol((InputStream)from));`
+- FileMetaData first seems to use the single arg read method, which gets a scheme value and then calls the 2 argument read method
+- the two arg read method passes itself as the second argument, and the first is the Interned TCompactProtocol.
+

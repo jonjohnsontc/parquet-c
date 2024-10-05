@@ -1,0 +1,177 @@
+
+############ file meta data ############
+created_by: parquet-mr version 1.14.2 (build e7937382e7894f4780c90eb6f896c163cad4cd93)
+num_columns: 15
+num_rows: 426
+num_row_groups: 1
+format_version: 1.0
+serialized_size: 1681
+
+
+############ Columns ############
+symbol
+full_name
+gics_sector
+gics_sub_industry
+env_score
+social_score
+gov_score
+total_esg
+highest_controversy
+percentile
+rating_year
+rating_month
+market_cap
+beta
+overall_risk
+
+############ Column(symbol) ############
+name: symbol
+path: symbol
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: BYTE_ARRAY
+logical_type: String
+converted_type (legacy): UTF8
+compression: SNAPPY (space_saved: 31%)
+
+############ Column(full_name) ############
+name: full_name
+path: full_name
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: BYTE_ARRAY
+logical_type: String
+converted_type (legacy): UTF8
+compression: SNAPPY (space_saved: 29%)
+
+############ Column(gics_sector) ############
+name: gics_sector
+path: gics_sector
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: BYTE_ARRAY
+logical_type: String
+converted_type (legacy): UTF8
+compression: SNAPPY (space_saved: 23%)
+
+############ Column(gics_sub_industry) ############
+name: gics_sub_industry
+path: gics_sub_industry
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: BYTE_ARRAY
+logical_type: String
+converted_type (legacy): UTF8
+compression: SNAPPY (space_saved: 29%)
+
+############ Column(env_score) ############
+name: env_score
+path: env_score
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: DOUBLE
+logical_type: None
+converted_type (legacy): NONE
+compression: SNAPPY (space_saved: 45%)
+
+############ Column(social_score) ############
+name: social_score
+path: social_score
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: DOUBLE
+logical_type: None
+converted_type (legacy): NONE
+compression: SNAPPY (space_saved: 46%)
+
+############ Column(gov_score) ############
+name: gov_score
+path: gov_score
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: DOUBLE
+logical_type: None
+converted_type (legacy): NONE
+compression: SNAPPY (space_saved: 51%)
+
+############ Column(total_esg) ############
+name: total_esg
+path: total_esg
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: DOUBLE
+logical_type: None
+converted_type (legacy): NONE
+compression: SNAPPY (space_saved: 41%)
+
+############ Column(highest_controversy) ############
+name: highest_controversy
+path: highest_controversy
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: INT32
+logical_type: Int(bitWidth=16, isSigned=true)
+converted_type (legacy): INT_16
+compression: SNAPPY (space_saved: 62%)
+
+############ Column(percentile) ############
+name: percentile
+path: percentile
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: DOUBLE
+logical_type: None
+converted_type (legacy): NONE
+compression: SNAPPY (space_saved: 38%)
+
+############ Column(rating_year) ############
+name: rating_year
+path: rating_year
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: INT32
+logical_type: Int(bitWidth=16, isSigned=true)
+converted_type (legacy): INT_16
+compression: SNAPPY (space_saved: 92%)
+
+############ Column(rating_month) ############
+name: rating_month
+path: rating_month
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: INT32
+logical_type: Int(bitWidth=16, isSigned=true)
+converted_type (legacy): INT_16
+compression: SNAPPY (space_saved: 92%)
+
+############ Column(market_cap) ############
+name: market_cap
+path: market_cap
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: INT64
+logical_type: Int(bitWidth=64, isSigned=true)
+converted_type (legacy): INT_64
+compression: SNAPPY (space_saved: 23%)
+
+############ Column(beta) ############
+name: beta
+path: beta
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: DOUBLE
+logical_type: None
+converted_type (legacy): NONE
+compression: SNAPPY (space_saved: 39%)
+
+############ Column(overall_risk) ############
+name: overall_risk
+path: overall_risk
+max_definition_level: 1
+max_repetition_level: 0
+physical_type: INT32
+logical_type: Int(bitWidth=16, isSigned=true)
+converted_type (legacy): INT_16
+compression: SNAPPY (space_saved: 53%)
+
