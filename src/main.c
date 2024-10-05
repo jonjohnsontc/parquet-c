@@ -19,7 +19,7 @@ read_sleb128_to_int64(const unsigned char *buf, const unsigned char *buf_end,
 void safe_read_bytes(void *buffer, FILE *stream, size_t no_items);
 void read_meta(const unsigned char *meta, FILE *stream, size_t length);
 int64_t zigzag_to_long(uint64_t n);
-int64_t tc_read_to_long(const unsigned char *buf, const unsigned char *buf_end);
+size_t tc_read_to_long(const unsigned char *buf, const unsigned char *buf_end, int64_t *res);
 
 /*
   - Read from text file at argv[1]
@@ -60,6 +60,7 @@ int main(int argc, char *argv[]) {
 
     //  We'll copy and invoke the read_footer function
     fseek(parquet, -(no_items + 8), SEEK_END);
+    printf("Parquet Metadata Index: %ld\n", ftell(parquet));
 
     const unsigned char *meta = malloc(no_items);
     if (meta == NULL) {
@@ -132,24 +133,25 @@ void safe_read_bytes(void *buffer, FILE *stream, size_t no_items) {
 }
 
 void read_meta(const unsigned char *meta, FILE *stream, size_t length) {
-    int64_t container, version;
+    int64_t container, version, schema_length, after_schema_length;
     size_t chars_read;
     const unsigned char *end_of_buffer;
 
     safe_read_bytes((void*)meta, stream, length);
     end_of_buffer = meta + length;
+
     // Get Version
     // I want to be able to read the version from the byte sequence and
     // advance the buffer to the next character.
     chars_read = read_sleb128_to_int64(meta, end_of_buffer, &container);
     version = zigzag_to_long(container);
     printf("Parquet Version: %lld\n", version);
-    printf("Chars read: %zu\n", chars_read);
 
     // Begin reading in SchemaElement list
     const unsigned char *after_version_read = meta + chars_read;
-    int64_t schema_length = tc_read_to_long(after_version_read, end_of_buffer);
+    chars_read = tc_read_to_long(after_version_read, end_of_buffer, &schema_length);
     printf("Length of schema: %lld\n", schema_length);
+
 //    printf("Parquet Metadata:\n");
 //    for (int i = 0; i < length; i++)
 //        printf("%c", meta[i]);
@@ -163,7 +165,7 @@ int64_t zigzag_to_long(uint64_t n) {
 /*
  * Reads in SLEB128 as a long int and zigzag decodes it after, per the TCompactProtocol
  */
-int64_t tc_read_to_long(const unsigned char *buf, const unsigned char *buf_end) {
+size_t tc_read_to_long(const unsigned char *buf, const unsigned char *buf_end, int64_t *res) {
    int64_t container;
    size_t chars_read;
    chars_read = read_sleb128_to_int64(buf, buf_end, &container);
@@ -171,5 +173,7 @@ int64_t tc_read_to_long(const unsigned char *buf, const unsigned char *buf_end) 
        fprintf(stderr, "Zero bytes read\n");
        exit(1);
    }
-   return zigzag_to_long(container);
+   printf("Container is %lld\n", container);
+   *res = zigzag_to_long(container);
+   return chars_read;
 }

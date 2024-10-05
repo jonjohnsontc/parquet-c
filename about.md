@@ -178,6 +178,7 @@ Hide these hints with HOMEBREW_NO_ENV_HINTS (see `man brew`).
 - Intalling bison worked, but now I'm seeing an error when running `make install`
 - <strike>It might be better if I instead just git clone the repository and change it myself</strike> 
   - Forgot that the archived file I downloaded earlier was the source code
+- Now I need to install Apache Thrift at version 0.19.0
 - I ended up changing the code in the problematic file based on the PR that fixed the [issue](https://github.com/apache/thrift/commit/bc9c04d8049d7d5f5cf4e63a25226c1fb8c930bf)
 - Afterward I resumed trying to build the parquet-cli library by running `mvn package -B -DskipTests`
 - I was able to package all the libaries up-to `Parquet Scala` which includes  parquet-cli, so I think I'm going to try and use it now
@@ -226,7 +227,14 @@ Disconnected from the target VM, address: '127.0.0.1:61374', transport: 'socket'
 - TCompactProtocol is changed to a TTupleProtocol before reading in the `FileMetaData.version`
 - First reads in version as I32 (read bytes as varint & then convert to Int via ZigZag)
 - I don't think there's any issue reading in a varint as i64 instead
--  
+- After the version is read in the TTupleProtocol performs a `readListBegin((byte) 12)` call
+  - and it reads in the size of the list as another varint 
+- An ArrayList is instantiated to hold elements in the Schema to be parsed
+- We start a for loop to go through all of the schema elements:
+  - First, a Schema Element is instantiated for the first element in the list
+    - The SchemaElement then uses its `read` method against the TTupleProtocol which holds the metadata
+    - How the element is read in I'm not sure, it's linked to an abstract method
+- Afterwards, the schema is set, and an Int64 is read in, which reads in the number of row groups
 
 #### TCompactProtocol
 
