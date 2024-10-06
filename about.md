@@ -13,6 +13,14 @@ Non-Goals:
 
 - Create an open source parquet library that everyone loves n uses
 
+## Project Structure
+
+You'll find `src` and `test` folders where all of the source code and related tests can be found. I created a `reference` folder to hold any information output from other parquet related tools (e.g., parquet-cli, parquet-tools for Python3) against test parquet files also located in the test directory. `src/extras/` are where any scripts go that I'm not sure I have another place for. 
+
+## Builds
+
+Builds are currently done through the build.sh shell script. Eventually I would like to move to a CMake / Makefile based deployment. Likely CMake, as that's what CLion uses, and I could also work/build this on Windows.
+
 ## Program Design
 
 I would like some sort of basic thread of what I'm building before slapping down some code:

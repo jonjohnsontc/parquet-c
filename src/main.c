@@ -133,7 +133,7 @@ void safe_read_bytes(void *buffer, FILE *stream, size_t no_items) {
 }
 
 void read_meta(const unsigned char *meta, FILE *stream, size_t length) {
-    int64_t container, version, schema_length, after_schema_length;
+    int64_t version, schema_length;
     size_t chars_read;
     const unsigned char *end_of_buffer;
 
@@ -143,8 +143,7 @@ void read_meta(const unsigned char *meta, FILE *stream, size_t length) {
     // Get Version
     // I want to be able to read the version from the byte sequence and
     // advance the buffer to the next character.
-    chars_read = read_sleb128_to_int64(meta, end_of_buffer, &container);
-    version = zigzag_to_long(container);
+    chars_read = tc_read_to_long(meta, end_of_buffer, &version);
     printf("Parquet Version: %lld\n", version);
 
     // Begin reading in SchemaElement list
@@ -163,7 +162,9 @@ int64_t zigzag_to_long(uint64_t n) {
 }
 
 /*
- * Reads in SLEB128 as a long int and zigzag decodes it after, per the TCompactProtocol
+ * Reads in SLEB128 as a long int and zigzag decodes it after, per the TCompactProtocol. Stores
+ * the result in pointer passed through, and returns the number of characters read from the input
+ * buffer.
  */
 size_t tc_read_to_long(const unsigned char *buf, const unsigned char *buf_end, int64_t *res) {
    int64_t container;
